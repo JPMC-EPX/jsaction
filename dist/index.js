@@ -2705,6 +2705,14 @@ module.exports = wait;
 
 /***/ }),
 
+/***/ 418:
+/***/ ((module) => {
+
+module.exports = eval("require")("request");
+
+
+/***/ }),
+
 /***/ 357:
 /***/ ((module) => {
 
@@ -2850,15 +2858,15 @@ async function run() {
 
     core.setOutput('time', new Date().toTimeString());
 
-    const https = __nccwpck_require__(211);
+    const request = __nccwpck_require__(418);
 
-    let request = https.get('https://sonar-routing-api.prod.aws.jpmchase.net/get_token', (res) => {
-      if (res.statusCode !== 200) {
-        console.error(`Did not get an OK from the server. Code: ${res.statusCode}`);
-        res.resume();
-        return;
-      }
+    request('https://sonar-routing-api.prod.aws.jpmchase.net/get_token', function(error, response, body){
+      console.error('error: ', error);
+      console.log('statusCode ', response && response.statusCode);
+      console.log('body: ', body);
     });
+
+    
   } catch (error) {
     core.setFailed(error.message);
   }
