@@ -4,7 +4,7 @@ inputs:
   cjToken:  # CJ Token
     description: 'Project CJ Token.'
     required: true
-    default: '##CJ TOKEN##''
+    default: '##CJ TOKEN##'
 runs:
   using: 'node16'
   main: 'dist/index.js'
