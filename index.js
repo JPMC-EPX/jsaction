@@ -16,8 +16,8 @@ async function run() {
         'cj-token': cjToken
       }
     }
-    
-    request('https://jet-idp-api-ifa.gaiacloud.jpmchase.net/api/jeti/accessToken/JPMC:URI:RS-33017-70436-RepoServices-PROD?environment=prod', function(error, response, body){
+
+    request(jetIdpRequest, function(error, response, body){
       console.error('error: ', error);
       console.log('statusCode ', response && response.statusCode);
       console.log('body: ', body);
