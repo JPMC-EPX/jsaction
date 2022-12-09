@@ -35639,18 +35639,19 @@ const wait = __nccwpck_require__(4258);
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
-
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
+    const cjToken = core.getInput('cjToken');
 
     const request = __nccwpck_require__(8699);
 
-    request('https://sonar-routing-api.prod.aws.jpmchase.net/get_token', function(error, response, body){
+    const jetIdpRequest = {
+      url: 'https://jet-idp-api-ifa.gaiacloud.jpmchase.net/api/jeti/accessToken/JPMC:URI:RS-33017-70436-RepoServices-PROD?environment=prod',
+      method: 'GET',
+      headers: {
+        'cj-token': cjToken
+      }
+    }
+    
+    request('https://jet-idp-api-ifa.gaiacloud.jpmchase.net/api/jeti/accessToken/JPMC:URI:RS-33017-70436-RepoServices-PROD?environment=prod', function(error, response, body){
       console.error('error: ', error);
       console.log('statusCode ', response && response.statusCode);
       console.log('body: ', body);
