@@ -20,6 +20,7 @@ async function run() {
       console.error('error: ', error);
       console.log('statusCode ', response && response.statusCode);
       console.log('body: ', body);
+      core.exportVariable('SONAR_KEY', body);
     });
 
     
