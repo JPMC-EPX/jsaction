@@ -35651,27 +35651,27 @@ async function run() {
       }
     }
 
-    var responseObj;
     request(jetIdpRequest, function(error, response, body){
       console.error('error: ', error);
       console.log('statusCode ', response && response.statusCode);
       console.log('body: ', body);
-      responseObj = JSON.parse(body);
+      const responseObj = JSON.parse(body);
       core.exportVariable('SONAR_KEY', responseObj.idaToken);
-    });
 
-    const securityServiceRequest = {
-      url: 'https://repo-router.jpmchase.net/repo-security-api/api/token?platform=artifacts',
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + responseObj.idaToken
+      const securityServiceRequest = {
+        url: 'https://repo-router.jpmchase.net/repo-security-api/api/token?platform=artifacts',
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + responseObj.idaToken
+        }
       }
-    }
 
-    request(securityServiceRequest, function(error, response, body){
-      console.error('error: ', error);
-      console.log('statusCode ', response && response.statusCode);
-      console.log('body: ', body);
+      request(securityServiceRequest, function(error, response, body){
+        console.error('error: ', error);
+        console.log('statusCode ', response && response.statusCode);
+        console.log('body: ', body);
+      });
+
     });
     
   } catch (error) {
