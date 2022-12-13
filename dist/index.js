@@ -35656,7 +35656,7 @@ async function run() {
       console.log('statusCode ', response && response.statusCode);
       console.log('body: ', body);
       const responseObj = JSON.parse(body);
-      core.exportVariable('SONAR_KEY', responseObj.idaToken);
+      
 
       const securityServiceRequest = {
         url: 'https://repo-router.jpmchase.net/repo-security-api/api/token?platform=artifacts',
@@ -35670,6 +35670,9 @@ async function run() {
         console.error('error: ', error);
         console.log('statusCode ', response && response.statusCode);
         console.log('body: ', body);
+        const tokenResponse = JSON.parse(body);
+        core.exportVariable('ARTIFACTORY_USER', tokenResponse.username);
+        core.exportVariable('ARTIFACTORY_PASSWORD', tokenResponse.token);
       });
 
     });
